@@ -4,9 +4,6 @@ import { StoreModule } from '@ngrx/store';
 
 import { PayComponent } from './pay.component';
 
-import { appReducer } from '../../state/app.reducer';
-import { appInitialState } from '../../state/app.init';
-
 describe('PayComponent', () => {
   let component: PayComponent;
   let fixture: ComponentFixture<PayComponent>;
@@ -15,10 +12,6 @@ describe('PayComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        StoreModule.forRoot(
-          { app: appReducer },
-          { initialState: { app: appInitialState } }
-        )
       ],
       declarations: [ PayComponent ]
     })

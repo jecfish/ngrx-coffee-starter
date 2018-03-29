@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   features: {
-    remix: true,
-    barista: true
+    remix: false,
+    barista: false
   }
 };

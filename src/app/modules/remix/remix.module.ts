@@ -4,9 +4,6 @@ import { RemixRoutingModule } from './remix-routing.module';
 
 import { CustomizePageComponent } from './containers';
 import { SharedModule } from '../shared';
-import { StoreModule } from '@ngrx/store';
-import { remixReducer } from './+state/remix.reducer';
-import { remixInitialState } from './+state/remix.init';
 
 const CONTAINERS = [CustomizePageComponent];
 
@@ -14,7 +11,6 @@ const CONTAINERS = [CustomizePageComponent];
   imports: [
     CommonModule,
     SharedModule,
-    StoreModule.forFeature('remix', remixReducer, { initialState: remixInitialState }),
     RemixRoutingModule
   ],
   declarations: [
