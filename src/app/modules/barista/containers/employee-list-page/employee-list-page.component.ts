@@ -1,13 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-
-import * as i from '../../+state/barista.interfaces';
-import { Store, select } from '@ngrx/store';
-import { take, map } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { AddToCoffeeList, AddToCart } from '../../../../state/app.actions';
-import { LoadEmployees, DeleteEmployee, AddEmployees, AddEmployee } from '../../+state/barista.actions';
-import { selectAllEmployees, selectAllEmployeesTotal } from '../../+state/barista.selectors';
 
 @Component({
   selector: 'app-employee-list-page',
@@ -16,8 +8,6 @@ import { selectAllEmployees, selectAllEmployeesTotal } from '../../+state/barist
 })
 export class EmployeeListPageComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  employees$ = this.store.pipe(select(selectAllEmployees));
-  total$ = this.store.pipe(select(selectAllEmployeesTotal));
 
   private get staticList() {
     return [
@@ -28,39 +18,18 @@ export class EmployeeListPageComponent implements OnInit, OnDestroy {
     ];
   }
 
-  constructor(private route: ActivatedRoute, private router: Router, private store: Store<i.BaristaState>) { }
+  constructor() { }
 
   ngOnInit() {
-
-    this.employees$.pipe(
-      map(x => !!x.length),
-      take(1),
-    ).subscribe(x => {
-      if (x) {
-        return;
-      }
-
-      this.store.dispatch(new AddEmployees({
-        employees: this.staticList
-      }));
-    });
-
   }
 
   remove(id: string) {
-    this.store.dispatch(new DeleteEmployee({ id }));
   }
 
   reset() {
-    this.store.dispatch(new LoadEmployees({
-      employees: this.staticList
-    }));
   }
 
   add(name, age) {
-    this.store.dispatch(new AddEmployee({
-      employee: { name, age }
-    }));
   }
 
   ngOnDestroy() {

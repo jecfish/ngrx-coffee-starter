@@ -1,13 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import * as i from '../../state/app.interfaces';
-import { Store } from '@ngrx/store';
-
-import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { GetCoffeeList, AddToCart } from '../../state/app.actions';
-
 
 @Component({
   selector: 'app-list-page',
@@ -16,29 +8,22 @@ import { GetCoffeeList, AddToCart } from '../../state/app.actions';
 })
 export class ListPageComponent implements OnInit {
 
-  // .filter(c => !c.name.startsWith('Special'))
-  list$ = this.store.select(x => x.app.coffeeList);
   isFeatureRemixOn = environment.features.remix;
 
-  constructor(private router: Router, private store: Store<i.AppState>) { }
+  coffee = {
+    name: 'coffee dummy',
+    price: 10.00,
+    recipe: [{ name: 'espresso', quantity: 100 }]
+  };
+
+  constructor() { }
 
   ngOnInit() {
-    this.store.select(x => !!x.app.coffeeList.length)
-      .pipe(
-        take(1)
-      )
-      .subscribe(x => {
-        if (x) { return; }
-        this.store.dispatch(new GetCoffeeList());
-      });
   }
 
   addToCart(name: string) {
-    this.store.dispatch(new AddToCart(name));
   }
 
   addToCartAndCheckout(name: string) {
-    this.addToCart(name);
-    this.router.navigateByUrl('/cart');
   }
 }
