@@ -11,21 +11,15 @@ export class CustomizePageComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
 
   ingredients = [
-    'espresso',
     'chocolate syrup',
-    'steamed milk',
+    'espresso',
     'milk foam',
+    'steamed milk',
     'whipped cream',
     'water'
   ];
 
-  private defaultCoffee = {
-    name: '',
-    price: 0,
-    recipe: this.ingredients.map(x => ({ name: x, quantity: 0 }))
-  };
-
-  coffee = { ...this.defaultCoffee };
+  coffee;
 
   constructor(private route: ActivatedRoute) { }
 
