@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-customize-page',
-  templateUrl: './customize-page.component.html',
+  templateUrl: `./customize-page.component.html`,
   styleUrls: ['./customize-page.component.css']
 })
 export class CustomizePageComponent implements OnInit, OnDestroy {
