@@ -17,9 +17,14 @@ import { AppComponent } from './app.component';
 import { ListPageComponent, CartPageComponent } from './containers';
 import { HeaderComponent, PayComponent } from './components';
 import { SharedModule } from './modules/shared';
+import { appReducer } from './state/app.reducer';
+import { appInitialState } from './state/app.init';
+import { AppState } from './state/app.interfaces';
 
 const CONTAINERS = [ListPageComponent, CartPageComponent];
 const COMPONENTS = [HeaderComponent, PayComponent];
+
+const metaReducers: MetaReducer<AppState>[] = !environment.production ? [storeFreeze] : [];
 
 @NgModule({
   declarations: [
@@ -31,6 +36,12 @@ const COMPONENTS = [HeaderComponent, PayComponent];
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    StoreModule.forRoot(
+      { app: appReducer },
+      {
+        initialState: { app: appInitialState },
+        metaReducers
+      }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     SharedModule,
     AppRoutingModule,
