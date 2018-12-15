@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Coffee, AppState } from '../../state/app.interfaces';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { GetCoffeeListSuccess } from '../../state/app.actions';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-page',
@@ -13,11 +14,17 @@ export class ListPageComponent implements OnInit {
 
   isFeatureRemixOn = environment.features.remix;
 
-  coffeeList: Coffee[];
+  coffeeList$: Observable<Coffee[]>;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    // select coffee list from database
+    // then display in ui
+    this.coffeeList$ = this.store.pipe(
+      select(state => state.app.coffeeList)
+    );
+
     // call api, get list of coffee from api
     // temporarily we create a dummy list
     // trigger store action GET_COFFEE_LIST_SUCCESS
@@ -35,8 +42,8 @@ export class ListPageComponent implements OnInit {
       },
     ];
 
+    // action
     this.store.dispatch(new GetCoffeeListSuccess(dummyList));
-
   }
 
   addToCart(name: string) {

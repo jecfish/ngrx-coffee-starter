@@ -1,10 +1,10 @@
 <ul>
-  <li>
-    <h4>Coffee name
+  <li *ngFor="let coffee of (coffeeList$ | async)">
+    <h4>{{ coffee.name }}
       <br>
-      <small>10.00</small>
+      <small>{{ coffee.price | currency }}</small>
     </h4>
-    <!-- <app-cup [item]="coffee" (click)="addToCart('')"></app-cup> -->
+    <app-cup [item]="coffee" (click)="addToCart(coffee.name)"></app-cup>
     <div *ngIf="isFeatureRemixOn">
       <button type="button" (click)="addToCartAndCheckout('')"> grab </button>
       <button type="button" routerLink="/remix" [queryParams]="{ template: '' }">remix</button>
