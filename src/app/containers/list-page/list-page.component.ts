@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Coffee, AppState } from '../../state/app.interfaces';
 import { Store, select } from '@ngrx/store';
-import { GetCoffeeListSuccess } from '../../state/app.actions';
+import { GetCoffeeListSuccess, AddToCart } from '../../state/app.actions';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -47,6 +47,7 @@ export class ListPageComponent implements OnInit {
   }
 
   addToCart(name: string) {
+    this.store.dispatch(new AddToCart(name));
   }
 
   addToCartAndCheckout(name: string) {
