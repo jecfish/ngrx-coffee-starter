@@ -12,6 +12,35 @@ export function appReducer(state: i.App, action: AppAction): i.App {
             return { ...state, ...current };
         }
 
+        case 'ADD_TO_CART': {
+            //  logic to update cart
+            const newCart = [];
+            const isExist = state.cart
+                .find(x => x.name === action.payload);
+
+            if (isExist) {
+                state.cart.forEach(x => {
+                    if (x.name === action.payload) {
+                        x.quantity = x.quantity + 1;
+                    }
+
+                    newCart.push(x);
+                });
+            } else {
+                state.cart.forEach(x => {
+                    newCart.push(x);
+                });
+
+                newCart.push({ name: action.payload, quantity: 1 });
+            }
+
+            const current = {
+                cart: newCart
+            };
+
+            return { ...state, ...current };
+        }
+
         default: {
             return state;
         }

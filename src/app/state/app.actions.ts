@@ -6,7 +6,13 @@ export class GetCoffeeListSuccess implements Action {
     constructor(public payload: i.Coffee[]) { }
 }
 
+export class AddToCart implements Action {
+    readonly type = 'ADD_TO_CART';
+    constructor(public payload: string) { }
+}
+
 /* export types */
 
 export type AppAction =
-    | GetCoffeeListSuccess;
+    | GetCoffeeListSuccess
+    | AddToCart;
