@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import * as i from '../../state/app.interfaces';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-cart-page',
@@ -7,9 +10,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartPageComponent implements OnInit {
 
-  constructor() { }
+  cartList$: Observable<IExpectedResult[]>;
+
+  constructor(private store: Store<i.AppState>) { }
 
   ngOnInit() {
+    this.cartList$ = this.store.pipe(
+      select(x => {
+        const result: IExpectedResult[] = [];
+
+        x.app.cart.forEach(cartItem => {
+          const coffee = x.app.coffeeList
+            .find(c => c.name === cartItem.name);
+
+          // calculate the total
+          const total = coffee.price * cartItem.quantity;
+
+          result.push({
+            coffee: coffee,
+            total: total,
+            quantity: cartItem.quantity
+          });
+        });
+
+        return result;
+      })
+    );
   }
 
   addOneItem(name) {
@@ -21,4 +47,10 @@ export class CartPageComponent implements OnInit {
   removeItem(name) {
   }
 
+}
+
+interface IExpectedResult {
+  coffee: i.Coffee;
+  quantity: number;
+  total: number;
 }

@@ -1,6 +1,6 @@
 <div class="list">
-  <p *ngIf="true">No coffee, go add some.</p>
-  <div *ngIf="false">
+  <p *ngIf="(cartList$ | async).length <= 0">No coffee, go add some.</p>
+  <div *ngIf="(cartList$ | async).length > 0">
     <app-pay></app-pay>
     <ul>
       <!-- header -->
@@ -11,19 +11,19 @@
         <div></div>
       </li>
       <!-- items -->
-      <li>
+      <li *ngFor="let item of cartList$ | async">
         <div>
-          Coffee name
+          {{ item.coffee.name }}
         </div>
         <div>
-          <span class="unit-desc">10.00 x 1</span>
+          <span class="unit-desc">{{ item.coffee.price | currency }} x {{ item.quantity }}</span>
           <div class="unit-controller">
             <button type="button" (click)="addOneItem('')">+</button>
             <button type="button" (click)="removeOneItem('')">-</button>
           </div>
         </div>
         <div>
-          10.00
+          {{ item.total | currency }}
         </div>
         <div>
           <button class="delete" type="button" (click)="removeItem('')">x</button>
