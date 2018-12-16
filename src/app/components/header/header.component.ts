@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../../state/app.interfaces';
 
 @Component({
   selector: 'app-header',
@@ -7,11 +9,16 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  cartCount$ = this.store.pipe(
+    select(x => x.app.cart
+      .map(item => item.quantity)
+      .reduce((acc, curr) => acc + curr, 0))
+  );
 
   isFeatureRemixOn = environment.features.remix;
   isFeatureBaristaOn = environment.features.barista;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
   }

@@ -83,6 +83,15 @@ export function appReducer(state: i.App, action: AppAction): i.App {
             return { ...state, ...current };
         }
 
+        case 'EMPTY_CART': {
+            const current = {
+                cart: []
+            };
+
+            return { ...state, ...current };
+        }
+
+
         default: {
             return state;
         }

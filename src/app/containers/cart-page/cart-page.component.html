@@ -18,15 +18,15 @@
         <div>
           <span class="unit-desc">{{ item.coffee.price | currency }} x {{ item.quantity }}</span>
           <div class="unit-controller">
-            <button type="button" (click)="addOneItem('')">+</button>
-            <button type="button" (click)="removeOneItem('')">-</button>
+            <button type="button" (click)="addOneItem(item.coffee.name)">+</button>
+            <button type="button" (click)="removeOneItem(item.coffee.name)">-</button>
           </div>
         </div>
         <div>
           {{ item.total | currency }}
         </div>
         <div>
-          <button class="delete" type="button" (click)="removeItem('')">x</button>
+          <button class="delete" type="button" (click)="removeItem(item.coffee.name)">x</button>
         </div>
       </li>
     </ul>
