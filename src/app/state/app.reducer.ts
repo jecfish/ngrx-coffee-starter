@@ -27,7 +27,7 @@ export function appReducer(state: i.App, action: AppAction): i.App {
                 newCart.push(item);
             });
 
-            if (isExist) {
+            if (!isExist) {
                 newCart.push({ name: action.payload, quantity: 1 });
             }
 
