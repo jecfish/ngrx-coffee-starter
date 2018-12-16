@@ -51,6 +51,15 @@ export function appReducer(state: i.App, action: AppAction): i.App {
             return { ...state, ...current };
         }
 
+        case 'REMOVE_ONE_CART_ITEM': {
+            // if the quantity is more than 1
+            // -1 from the quantity
+
+            // if quanity is equal to 1
+            // remove the item from the cart
+            return state; // fix it
+        }
+
         default: {
             return state;
         }
