@@ -4,6 +4,30 @@ import { appInitialState } from './app.init';
 
 export function appReducer(state: i.App, action: AppAction): i.App {
     switch (action.type) {
+
+        case 'SET_IS_PAGE_LOADING': {
+            const current = {
+                isPageLoading: action.payload
+            };
+
+            return { ...state, ...current };
+        }
+
+
+        case 'GET_COFFEE_LIST': {
+            const current = {
+            };
+
+            return { ...state, ...current };
+        }
+
+        case 'GET_COFFEE_LIST_FAILED': {
+            const current = {
+            };
+
+            return { ...state, ...current };
+        }
+
         case 'GET_COFFEE_LIST_SUCCESS': {
             const current = {
                 coffeeList: action.payload

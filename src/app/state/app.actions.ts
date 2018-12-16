@@ -1,6 +1,11 @@
 import { Action } from '@ngrx/store';
 import * as i from './app.interfaces';
 
+export class SetIsPageLoading implements Action {
+    readonly type = 'SET_IS_PAGE_LOADING';
+    constructor(public payload: boolean) { }
+}
+
 export class GetCoffeeList implements Action {
     readonly type = 'GET_COFFEE_LIST';
     constructor() { }
@@ -39,7 +44,10 @@ export class EmptyCart implements Action {
 /* export types */
 
 export type AppAction =
+    | SetIsPageLoading
+    | GetCoffeeList
     | GetCoffeeListSuccess
+    | GetCoffeeListFailed
     | AddToCart
     | RemoveCartItem
     | RemoveOneCartItem

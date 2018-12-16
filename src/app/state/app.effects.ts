@@ -3,10 +3,10 @@ import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Store, Action } from '@ngrx/store';
 
 import { Observable, of } from 'rxjs';
-import { switchMap, map, catchError } from 'rxjs/operators';
+import { switchMap, map, catchError, tap, mergeMap } from 'rxjs/operators';
 import { CoffeeService } from '../services/coffee.service';
 import * as i from './app.interfaces';
-import { AppAction, GetCoffeeListSuccess, GetCoffeeListFailed } from './app.actions';
+import { AppAction, GetCoffeeListSuccess, GetCoffeeListFailed, SetIsPageLoading } from './app.actions';
 
 @Injectable()
 export class AppEffects {
@@ -14,11 +14,19 @@ export class AppEffects {
     getCoffeeListStart$: Observable<Action> = this.actions$
         .pipe(
             ofType('GET_COFFEE_LIST'),
+            tap(x => this._store.dispatch(new SetIsPageLoading(true))),
             switchMap(() => {
                 return this.coffeeSvc.getAll()
                     .pipe(
-                        map(x => new GetCoffeeListSuccess(x)),
-                        catchError(() => of(new GetCoffeeListFailed()))
+                        switchMap(x =>
+                            [
+                                new GetCoffeeListSuccess(x),
+                                new SetIsPageLoading(false)
+                            ]),
+                        catchError(() => of(
+                            new GetCoffeeListFailed(),
+                            new SetIsPageLoading(false)
+                        ))
                     );
             })
         );

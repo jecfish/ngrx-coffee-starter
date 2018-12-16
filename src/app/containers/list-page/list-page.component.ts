@@ -15,6 +15,9 @@ export class ListPageComponent implements OnInit {
 
   isFeatureRemixOn = environment.features.remix;
 
+  isPageLoading$ = this.store.pipe(
+    select(x => x.app.isPageLoading)
+  );
   coffeeList$: Observable<Coffee[]>;
 
   constructor(private store: Store<AppState>,

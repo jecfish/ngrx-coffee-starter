@@ -1,4 +1,5 @@
-<ul>
+<p *ngIf="(isPageLoading$ | async)">Page is loading</p>
+<ul *ngIf="!(isPageLoading$ | async)">
   <li *ngFor="let coffee of (coffeeList$ | async)">
     <h4>{{ coffee.name }}
       <br>
