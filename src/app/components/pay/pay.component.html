@@ -1,3 +1,3 @@
 <button class="pay" type="button" (click)="pay()">
-    Total: 0.00
-  </button>
+  Total: {{ total$ | async | currency }}
+</button>

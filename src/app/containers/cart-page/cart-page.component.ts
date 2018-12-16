@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import * as i from '../../state/app.interfaces';
 import { Store, select } from '@ngrx/store';
+import { AddToCart, RemoveOneCartItem, RemoveCartItem } from '../../state/app.actions';
 
 @Component({
   selector: 'app-cart-page',
@@ -38,13 +39,16 @@ export class CartPageComponent implements OnInit {
     );
   }
 
-  addOneItem(name) {
+  addOneItem(name: string) {
+    this.store.dispatch(new AddToCart(name));
   }
 
-  removeOneItem(name) {
+  removeOneItem(name: string) {
+    this.store.dispatch(new RemoveOneCartItem(name));
   }
 
   removeItem(name) {
+    this.store.dispatch(new RemoveCartItem(name));
   }
 
 }

@@ -21,10 +21,16 @@ export class RemoveOneCartItem implements Action {
     constructor(public payload: string) { }
 }
 
+export class EmptyCart implements Action {
+    readonly type = 'EMPTY_CART';
+    constructor() { }
+}
+
 /* export types */
 
 export type AppAction =
     | GetCoffeeListSuccess
     | AddToCart
     | RemoveCartItem
-    | RemoveOneCartItem;
+    | RemoveOneCartItem
+    | EmptyCart;
