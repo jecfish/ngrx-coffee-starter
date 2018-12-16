@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import * as i from '../../state/app.interfaces';
 import { Store, select } from '@ngrx/store';
 import { AddToCart, RemoveOneCartItem, RemoveCartItem } from '../../state/app.actions';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cart-page',
@@ -35,7 +36,9 @@ export class CartPageComponent implements OnInit {
         });
 
         return result;
-      })
+      }),
+      // sort by name
+      map(x => x.sort((a, b) => a.coffee.name < b.coffee.name ? -1 : 1))
     );
   }
 
