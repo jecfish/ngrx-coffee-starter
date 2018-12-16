@@ -1,5 +1,5 @@
 import { appInitialState } from './app.init';
-import { GetCoffeeListSuccess } from './app.actions';
+import { GetCoffeeListSuccess, AddToCart } from './app.actions';
 import { appReducer } from './app.reducer';
 
 // jasmine test framework
@@ -57,19 +57,83 @@ fdescribe('App Reducer', () => {
 
         // asssert, checking
         // if expectedState === latestState
+        it('should add a new item', () => {
+            // arrange
+            const currentState = {
+                ...appInitialState,
+            };
 
+            const expectedState = {
+                ...appInitialState,
+                cart: [
+                    { name: 'coffee 1', quantity: 1 }
+                ]
+            };
 
+            // action
+            const action = new AddToCart('coffee 1');
+            const actual = appReducer(currentState, action);
 
+            // assert
+            expect(actual).toEqual(expectedState);
+        });
 
         // case 2: if my cart contains  'coffee 1' & quantiy 2,
         // then it should update the quantity by 1
         // { name: 'coffee 1', quantity: 3 }
+        it('should increase the item quantity', () => {
+            // arrange
+            const currentState = {
+                ...appInitialState,
+                cart: [
+                    { name: 'coffee 1', quantity: 2 }
+                ]
+            };
+
+            const expectedState = {
+                ...appInitialState,
+                cart: [
+                    { name: 'coffee 1', quantity: 3 }
+                ]
+            };
+
+            // action
+            const action = new AddToCart('coffee 1');
+            const actual = appReducer(currentState, action);
+
+            // assert
+            expect(actual).toEqual(expectedState);
+        });
 
         // case 3: if my cart contains  'coffee 1',
         // and i add to cart 'coffee 2'
         // then it should my cart should be
         // have 2 items
         // [{ name: 'coffee 1', quantity: 1 }, { name: 'coffee 2', quantity: 1 }]
+        it('should add a new item if item not exist in cart', () => {
+            // arrange
+            const currentState = {
+                ...appInitialState,
+                cart: [
+                    { name: 'coffee 1', quantity: 1 },
+                ]
+            };
+
+            const expectedState = {
+                ...appInitialState,
+                cart: [
+                    { name: 'coffee 1', quantity: 1 },
+                    { name: 'coffee 2', quantity: 1 }
+                ]
+            };
+
+            // action
+            const action = new AddToCart('coffee 2');
+            const actual = appReducer(currentState, action);
+
+            // assert
+            expect(actual).toEqual(expectedState);
+        });
 
     });
 
