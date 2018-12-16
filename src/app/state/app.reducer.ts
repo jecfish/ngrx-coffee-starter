@@ -81,7 +81,7 @@ export function appReducer(state: i.App, action: AppAction): i.App {
             };
 
 
-            return state; // fix it
+            return { ...state, ...current}; // fix it
         }
 
         default: {
