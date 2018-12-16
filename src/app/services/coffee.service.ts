@@ -9,7 +9,7 @@ export class CoffeeService {
 
   getAll() {
     return this.http.get<any[]>('assets/list.json').pipe(
-      delay(1000)
+      delay(5000)
     );
   }
 

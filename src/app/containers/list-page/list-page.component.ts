@@ -4,6 +4,7 @@ import { Coffee, AppState } from '../../state/app.interfaces';
 import { Store, select } from '@ngrx/store';
 import { GetCoffeeListSuccess, AddToCart } from '../../state/app.actions';
 import { Observable } from 'rxjs';
+import { CoffeeService } from '../../services/coffee.service';
 
 @Component({
   selector: 'app-list-page',
@@ -16,7 +17,8 @@ export class ListPageComponent implements OnInit {
 
   coffeeList$: Observable<Coffee[]>;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>,
+    private coffeeSvc: CoffeeService) { }
 
   ngOnInit() {
     // select coffee list from database
@@ -29,21 +31,27 @@ export class ListPageComponent implements OnInit {
     // temporarily we create a dummy list
     // trigger store action GET_COFFEE_LIST_SUCCESS
     // to update the store (aka "database")
-    const dummyList = [
-      {
-        name: 'coffee dummy 1',
-        price: 10.00,
-        recipe: [{ name: 'espresso', quantity: 100 }]
-      },
-      {
-        name: 'coffee dummy 2',
-        price: 20.00,
-        recipe: [{ name: 'espresso', quantity: 200 }]
-      },
-    ];
-
+    // const dummyList = [
+    //   {
+    //     name: 'coffee dummy 1',
+    //     price: 10.00,
+    //     recipe: [{ name: 'espresso', quantity: 100 }]
+    //   },
+    //   {
+    //     name: 'coffee dummy 2',
+    //     price: 20.00,
+    //     recipe: [{ name: 'espresso', quantity: 200 }]
+    //   },
+    // ];
+    // 
     // action
-    this.store.dispatch(new GetCoffeeListSuccess(dummyList));
+    // this.store.dispatch(new GetCoffeeListSuccess(dummyList));
+    this.coffeeSvc.getAll()
+      .subscribe(data => {
+        // action
+        this.store.dispatch(new GetCoffeeListSuccess(data));
+      });
+
   }
 
   addToCart(name: string) {
