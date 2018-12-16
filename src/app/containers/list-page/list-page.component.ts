@@ -43,7 +43,7 @@ export class ListPageComponent implements OnInit {
     //     recipe: [{ name: 'espresso', quantity: 200 }]
     //   },
     // ];
-    // 
+    //
     // action
     // this.store.dispatch(new GetCoffeeListSuccess(dummyList));
     this.coffeeSvc.getAll()
