@@ -4,7 +4,7 @@ import { appReducer } from './app.reducer';
 
 // jasmine test framework
 
-describe('App Reducer', () => {
+fdescribe('App Reducer', () => {
     // test groups GET_COFFEE_LIST_SUCCESS
     // test cases
     // case 1:
