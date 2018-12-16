@@ -66,7 +66,7 @@ export function appReducer(state: i.App, action: AppAction): i.App {
                 .filter(x => x.name === action.payload)
                 .map(x => {
                     const quantity = x.quantity - 1;
-                    isQuantity0  = (quantity <= 0);
+                    isQuantity0 = (quantity <= 0);
                     return {
                         ...x,
                         quantity: quantity
@@ -80,8 +80,7 @@ export function appReducer(state: i.App, action: AppAction): i.App {
                 ]
             };
 
-
-            return { ...state, ...current}; // fix it
+            return { ...state, ...current };
         }
 
         default: {
