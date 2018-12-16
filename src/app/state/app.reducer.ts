@@ -38,6 +38,19 @@ export function appReducer(state: i.App, action: AppAction): i.App {
             return { ...state, ...current };
         }
 
+        case 'REMOVE_CART_ITEM': {
+            // remove the cart item
+            // with the name in payload
+            const newCart = state.cart
+                .filter(x => x.name === action.payload);
+
+            const current = {
+                cart: newCart
+            };
+
+            return { ...state, ...current };
+        }
+
         default: {
             return state;
         }

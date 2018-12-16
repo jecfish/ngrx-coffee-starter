@@ -11,8 +11,14 @@ export class AddToCart implements Action {
     constructor(public payload: string) { }
 }
 
+export class RemoveCartItem implements Action {
+    readonly type = 'REMOVE_CART_ITEM';
+    constructor(public payload: string) { }
+}
+
 /* export types */
 
 export type AppAction =
     | GetCoffeeListSuccess
-    | AddToCart;
+    | AddToCart
+    | RemoveCartItem;
