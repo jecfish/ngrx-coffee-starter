@@ -20,6 +20,7 @@ import { SharedModule } from './modules/shared';
 import { appReducer } from './state/app.reducer';
 import { appInitialState } from './state/app.init';
 import { AppState } from './state/app.interfaces';
+import { AppEffects } from './state/app.effects';
 
 const CONTAINERS = [ListPageComponent, CartPageComponent];
 const COMPONENTS = [HeaderComponent, PayComponent];
@@ -42,6 +43,7 @@ const metaReducers: MetaReducer<AppState>[] = !environment.production ? [storeFr
         initialState: { app: appInitialState },
         metaReducers
       }),
+    EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     SharedModule,
     AppRoutingModule,

@@ -1,9 +1,19 @@
 import { Action } from '@ngrx/store';
 import * as i from './app.interfaces';
 
+export class GetCoffeeList implements Action {
+    readonly type = 'GET_COFFEE_LIST';
+    constructor() { }
+}
+
 export class GetCoffeeListSuccess implements Action {
     readonly type = 'GET_COFFEE_LIST_SUCCESS';
     constructor(public payload: i.Coffee[]) { }
+}
+
+export class GetCoffeeListFailed implements Action {
+    readonly type = 'GET_COFFEE_LIST_FAILED';
+    constructor(public payload?: any) { }
 }
 
 export class AddToCart implements Action {

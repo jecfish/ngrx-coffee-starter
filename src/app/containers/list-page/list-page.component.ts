@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Coffee, AppState } from '../../state/app.interfaces';
 import { Store, select } from '@ngrx/store';
-import { GetCoffeeListSuccess, AddToCart } from '../../state/app.actions';
+import { GetCoffeeListSuccess, AddToCart, GetCoffeeList } from '../../state/app.actions';
 import { Observable } from 'rxjs';
 import { CoffeeService } from '../../services/coffee.service';
 
@@ -43,14 +43,23 @@ export class ListPageComponent implements OnInit {
     //     recipe: [{ name: 'espresso', quantity: 200 }]
     //   },
     // ];
-    //
+
+    // action1 GetCoffeeList <- async action = effect
+    // action2 GetCoffeeListSuccess
+    // action3 GetCoffeeListFailed
+
     // action
     // this.store.dispatch(new GetCoffeeListSuccess(dummyList));
-    this.coffeeSvc.getAll()
-      .subscribe(data => {
-        // action
-        this.store.dispatch(new GetCoffeeListSuccess(data));
-      });
+    // this.coffeeSvc.getAll()
+    //   .subscribe(data => {
+    //     // action
+    //     this.store.dispatch(new GetCoffeeListSuccess(data));
+    //   }, error => {
+    //     console.log('some error happen', error);
+    //   });
+
+    // using effects
+    this.store.dispatch(new GetCoffeeList());
 
   }
 
