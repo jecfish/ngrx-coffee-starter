@@ -57,6 +57,30 @@ export function appReducer(state: i.App, action: AppAction): i.App {
 
             // if quanity is equal to 1
             // remove the item from the cart
+
+            // you have more than 1 way to
+            // achieve the above logic
+            // below is how I do it
+            let isQuantity0 = false;
+            const selected = state.cart
+                .filter(x => x.name === action.payload)
+                .map(x => {
+                    const quantity = x.quantity - 1;
+                    isQuantity0  = (quantity <= 0);
+                    return {
+                        ...x,
+                        quantity: quantity
+                    };
+                });
+
+            const current = {
+                cart: [
+                    ...state.cart.filter(x => x.name !== action.payload),
+                    ...isQuantity0 ? [] : selected
+                ]
+            };
+
+
             return state; // fix it
         }
 
